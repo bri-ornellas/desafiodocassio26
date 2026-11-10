@@ -1,0 +1,17 @@
+Como funciona a transição das cartas:
+
+No HTML, as cinco imagens ficam dentro de um elemento com a classe "deck". Cada imagem também recebe a classe "card" e uma classe própria, como "card--1" ou "card--2". Isso permite aplicar uma aparência geral a todas as cartas e definir uma posição diferente para cada uma.
+
+Inicialmente, todas as cartas usam position: absolute e ficam centralizadas no mesmo ponto do baralho. A regra transform da classe "card" posiciona cada imagem pelo centro com translate(-50%, -50%). As variáveis --angle e --depth acrescentam uma pequena inclinação e profundidade, enquanto z-index organiza quais cartas aparecem por cima das outras.
+
+A abertura começa com o seletor ".deck:hover .card". Ele seleciona as cartas quando o ponteiro está sobre o baralho. As regras seguintes especificam o transform de cada carta nesse estado: as cartas das pontas se afastam mais, as do meio menos, e os ângulos diferentes formam o leque. A regra ":focus-within" permite manter o mesmo efeito quando um elemento dentro do baralho recebe foco.
+
+A propriedade transition, na classe "card", determina como as mudanças de estilo são animadas. "transform 650ms ease" significa que as mudanças de transform levam 650 milissegundos e usam a curva "ease": começam e terminam suavemente. "box-shadow 650ms ease" faz a sombra também mudar gradualmente. Sem transition, as cartas passariam instantaneamente da posição empilhada para a posição aberta.
+
+O efeito é acionado porque o navegador compara os estilos normais da carta com os estilos aplicados pelo hover. Quando o ponteiro entra no baralho, as propriedades transform e box-shadow mudam e o navegador interpola os valores durante o tempo definido. Quando o ponteiro sai, os estilos voltam aos valores iniciais e a transição acontece novamente, agora no sentido de fechar o leque.
+
+Transform reúne várias operações numa única propriedade. "translate(x, y)" desloca a carta horizontal e verticalmente; "rotate()" gira a carta no plano da tela; "rotateY()" inclina sua face para os lados; e "translateZ()" posiciona a carta mais perto ou mais longe no espaço 3D. A sequência e os valores variam em cada carta para criar uma distribuição curva, em vez de uma fila reta.
+
+A propriedade perspective: 1000px fica no elemento "deck", que é o pai das cartas. Ela define a distância de observação do espaço 3D: um valor menor tende a exagerar a sensação de profundidade; um valor maior deixa a perspectiva mais discreta. Com rotateY e translateZ, essa perspectiva ajuda a dar volume ao leque.
+
+As variáveis CSS --angle e --depth guardam a inclinação e a profundidade inicial de cada carta. A variável --spread controla o espaçamento horizontal do leque e usa clamp() para limitar esse valor em telas de tamanhos diferentes.

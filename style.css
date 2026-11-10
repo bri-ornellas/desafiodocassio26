@@ -1,0 +1,98 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background: #101820 url("Img/background.avif") center / cover fixed;
+}
+
+.deck {
+    --spread: clamp(48px, 14vw, 150px);
+    position: relative;
+    width: min(920px, 100vw);
+    height: 380px;
+    perspective: 1000px;
+}
+
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(64px, 14vw, 150px);
+    aspect-ratio: 2.25 / 3.5;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px #0008;
+    object-fit: cover;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateZ(var(--depth));
+    transition: transform 650ms ease, box-shadow 650ms ease;
+}
+
+.card--1 {
+    --angle: -5deg;
+    --depth: 0px;
+    z-index: 1;
+}
+
+.card--2 {
+    --angle: -2deg;
+    --depth: 2px;
+    z-index: 2;
+}
+
+.card--3 {
+    --angle: 1deg;
+    --depth: 4px;
+    z-index: 3;
+}
+
+.card--4 {
+    --angle: 4deg;
+    --depth: 6px;
+    z-index: 4;
+}
+
+.card--5 {
+    --angle: 7deg;
+    --depth: 8px;
+    z-index: 5;
+}
+
+.deck:hover .card,
+.deck:focus-within .card {
+    box-shadow: 0 22px 34px #000a;
+}
+
+.deck:hover .card--1,
+.deck:focus-within .card--1 {
+    transform: translate(calc(-50% - var(--spread) - var(--spread)), calc(-50% + 28px))
+               rotate(-28deg) rotateY(-8deg) translateZ(20px);
+}
+
+.deck:hover .card--2,
+.deck:focus-within .card--2 {
+    transform: translate(calc(-50% - var(--spread)), calc(-50% + 2px))
+               rotate(-14deg) rotateY(-4deg) translateZ(30px);
+}
+
+.deck:hover .card--3,
+.deck:focus-within .card--3 {
+    transform: translate(-50%, calc(-50% - 14px)) rotateY(0) translateZ(40px);
+}
+
+.deck:hover .card--4,
+.deck:focus-within .card--4 {
+    transform: translate(calc(-50% + var(--spread)), calc(-50% + 2px))
+               rotate(14deg) rotateY(4deg) translateZ(30px);
+}
+
+.deck:hover .card--5,
+.deck:focus-within .card--5 {
+    transform: translate(calc(-50% + var(--spread) + var(--spread)), calc(-50% + 28px))
+               rotate(28deg) rotateY(8deg) translateZ(20px);
+}
